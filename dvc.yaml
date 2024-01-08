@@ -1,1 +1,29 @@
-
+stages:
+  fill_na:
+    cmd: python3 scripts/feature_engineering/fill_na.py data/raw/train.csv
+    deps:
+    - data/raw/train.csv
+    - scripts/feature_engineering/fill_na.py
+    outs:
+    - data/stage1
+  get_features:
+    cmd: python3 scripts/feature_engineering/get_features.py data/stage1/train.csv
+    deps:
+    - data/stage1/train.csv
+    - scripts/feature_engineering/get_features.py
+    outs:
+    - data/stage2
+  text_to_numeric:
+    cmd: python3 scripts/feature_engineering/change_text_to_numeric.py data/stage2/train.csv
+    deps:
+    - data/stage2/train.csv
+    - scripts/feature_engineering/change_text_to_numeric.py
+    outs:
+    - data/stage3
+  split:
+    cmd: python3 scripts/feature_engineering/split_test_train.py data/stage3/train.csv
+    deps:
+    - data/stage3/train.csv
+    - scripts/feature_engineering/split_test_train.py
+    outs:
+    - data/stage4
