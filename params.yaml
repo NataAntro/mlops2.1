@@ -1,1 +1,5 @@
+train:
+  iterations: 1000
+  depth: 2
+  random_seed: 42
 

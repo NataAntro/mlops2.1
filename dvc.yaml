@@ -27,3 +27,14 @@ stages:
     - scripts/feature_engineering/split_test_train.py
     outs:
     - data/stage4
+  train:
+    cmd: python3 scripts/model/model.py data/stage4/train.csv model.pkl
+    deps:
+    - data/stage4/train.csv
+    - scripts/model/model.py
+    params:
+    - train.iterations
+    - train.depth
+    - train.random_seed
+    outs:
+    - models/model.pkl
